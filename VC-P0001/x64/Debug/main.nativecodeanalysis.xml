@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DEFECTS>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\EpicuroTech\Documents\IPCA\2022-2023\2S\VC\codigo\VC-P0001\VC-P0001\</FILEPATH>
+      <FILENAME>main.c</FILENAME>
+      <LINE>18</LINE>
+      <COLUMN>2</COLUMN>
+    </SFA>
+    <DEFECTCODE>6031</DEFECTCODE>
+    <DESCRIPTION>Return value ignored: 'getchar'.</DESCRIPTION>
+    <FUNCTION>main_VC03_19</FUNCTION>
+    <DECORATED>main_VC03_19</DECORATED>
+    <FUNCLINE>9</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\EpicuroTech\Documents\IPCA\2022-2023\2S\VC\codigo\VC-P0001\VC-P0001\</FILEPATH>
+      <FILENAME>main.c</FILENAME>
+      <LINE>32</LINE>
+      <COLUMN>1</COLUMN>
+    </SFA>
+    <DEFECTCODE>6031</DEFECTCODE>
+    <DESCRIPTION>Return value ignored: 'getchar'.</DESCRIPTION>
+    <FUNCTION>main_VC03_19</FUNCTION>
+    <DECORATED>main_VC03_19</DECORATED>
+    <FUNCLINE>9</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\EpicuroTech\Documents\IPCA\2022-2023\2S\VC\codigo\VC-P0001\VC-P0001\</FILEPATH>
+      <FILENAME>main.c</FILENAME>
+      <LINE>50</LINE>
+      <COLUMN>2</COLUMN>
+    </SFA>
+    <DEFECTCODE>6031</DEFECTCODE>
+    <DESCRIPTION>Return value ignored: 'getchar'.</DESCRIPTION>
+    <FUNCTION>main_VC03_24</FUNCTION>
+    <DECORATED>main_VC03_24</DECORATED>
+    <FUNCLINE>40</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\EpicuroTech\Documents\IPCA\2022-2023\2S\VC\codigo\VC-P0001\VC-P0001\</FILEPATH>
+      <FILENAME>main.c</FILENAME>
+      <LINE>71</LINE>
+      <COLUMN>1</COLUMN>
+    </SFA>
+    <DEFECTCODE>6031</DEFECTCODE>
+    <DESCRIPTION>Return value ignored: 'getchar'.</DESCRIPTION>
+    <FUNCTION>main_VC03_24</FUNCTION>
+    <DECORATED>main_VC03_24</DECORATED>
+    <FUNCLINE>40</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\EpicuroTech\Documents\IPCA\2022-2023\2S\VC\codigo\VC-P0001\VC-P0001\</FILEPATH>
+      <FILENAME>main.c</FILENAME>
+      <LINE>87</LINE>
+      <COLUMN>2</COLUMN>
+    </SFA>
+    <DEFECTCODE>6031</DEFECTCODE>
+    <DESCRIPTION>Return value ignored: 'getchar'.</DESCRIPTION>
+    <FUNCTION>main_VC03_26</FUNCTION>
+    <DECORATED>main_VC03_26</DECORATED>
+    <FUNCLINE>78</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\EpicuroTech\Documents\IPCA\2022-2023\2S\VC\codigo\VC-P0001\VC-P0001\</FILEPATH>
+      <FILENAME>main.c</FILENAME>
+      <LINE>102</LINE>
+      <COLUMN>1</COLUMN>
+    </SFA>
+    <DEFECTCODE>6031</DEFECTCODE>
+    <DESCRIPTION>Return value ignored: 'getchar'.</DESCRIPTION>
+    <FUNCTION>main_VC03_26</FUNCTION>
+    <DECORATED>main_VC03_26</DECORATED>
+    <FUNCLINE>78</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\EpicuroTech\Documents\IPCA\2022-2023\2S\VC\codigo\VC-P0001\VC-P0001\</FILEPATH>
+      <FILENAME>main.c</FILENAME>
+      <LINE>119</LINE>
+      <COLUMN>2</COLUMN>
+    </SFA>
+    <DEFECTCODE>6031</DEFECTCODE>
+    <DESCRIPTION>Return value ignored: 'getchar'.</DESCRIPTION>
+    <FUNCTION>main</FUNCTION>
+    <DECORATED>main</DECORATED>
+    <FUNCLINE>110</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\EpicuroTech\Documents\IPCA\2022-2023\2S\VC\codigo\VC-P0001\VC-P0001\</FILEPATH>
+      <FILENAME>main.c</FILENAME>
+      <LINE>134</LINE>
+      <COLUMN>1</COLUMN>
+    </SFA>
+    <DEFECTCODE>6031</DEFECTCODE>
+    <DESCRIPTION>Return value ignored: 'getchar'.</DESCRIPTION>
+    <FUNCTION>main</FUNCTION>
+    <DECORATED>main</DECORATED>
+    <FUNCLINE>110</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+</DEFECTS>

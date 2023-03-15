@@ -1,0 +1,269 @@
+{
+  "version": "2.1.0",
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "runs": [
+    {
+      "results": [
+        {
+          "ruleId": "C6031",
+          "message": {
+            "text": "Return value ignored: 'getchar'."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Users/EpicuroTech/Documents/IPCA/2022-2023/2S/VC/codigo/VC-P0001/VC-P0001/main.c"
+                },
+                "region": {
+                  "startLine": 18,
+                  "startColumn": 3,
+                  "endLine": 18,
+                  "endColumn": 3
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "main_VC03_19",
+                  "decoratedName": "main_VC03_19",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C6031",
+          "message": {
+            "text": "Return value ignored: 'getchar'."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Users/EpicuroTech/Documents/IPCA/2022-2023/2S/VC/codigo/VC-P0001/VC-P0001/main.c"
+                },
+                "region": {
+                  "startLine": 32,
+                  "startColumn": 2,
+                  "endLine": 32,
+                  "endColumn": 2
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "main_VC03_19",
+                  "decoratedName": "main_VC03_19",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C6031",
+          "message": {
+            "text": "Return value ignored: 'getchar'."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Users/EpicuroTech/Documents/IPCA/2022-2023/2S/VC/codigo/VC-P0001/VC-P0001/main.c"
+                },
+                "region": {
+                  "startLine": 50,
+                  "startColumn": 3,
+                  "endLine": 50,
+                  "endColumn": 3
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "main_VC03_24",
+                  "decoratedName": "main_VC03_24",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C6031",
+          "message": {
+            "text": "Return value ignored: 'getchar'."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Users/EpicuroTech/Documents/IPCA/2022-2023/2S/VC/codigo/VC-P0001/VC-P0001/main.c"
+                },
+                "region": {
+                  "startLine": 71,
+                  "startColumn": 2,
+                  "endLine": 71,
+                  "endColumn": 2
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "main_VC03_24",
+                  "decoratedName": "main_VC03_24",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C6031",
+          "message": {
+            "text": "Return value ignored: 'getchar'."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Users/EpicuroTech/Documents/IPCA/2022-2023/2S/VC/codigo/VC-P0001/VC-P0001/main.c"
+                },
+                "region": {
+                  "startLine": 87,
+                  "startColumn": 3,
+                  "endLine": 87,
+                  "endColumn": 3
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "main_VC03_26",
+                  "decoratedName": "main_VC03_26",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C6031",
+          "message": {
+            "text": "Return value ignored: 'getchar'."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Users/EpicuroTech/Documents/IPCA/2022-2023/2S/VC/codigo/VC-P0001/VC-P0001/main.c"
+                },
+                "region": {
+                  "startLine": 102,
+                  "startColumn": 2,
+                  "endLine": 102,
+                  "endColumn": 2
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "main_VC03_26",
+                  "decoratedName": "main_VC03_26",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C6031",
+          "message": {
+            "text": "Return value ignored: 'getchar'."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Users/EpicuroTech/Documents/IPCA/2022-2023/2S/VC/codigo/VC-P0001/VC-P0001/main.c"
+                },
+                "region": {
+                  "startLine": 119,
+                  "startColumn": 3,
+                  "endLine": 119,
+                  "endColumn": 3
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "main",
+                  "decoratedName": "main",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C6031",
+          "message": {
+            "text": "Return value ignored: 'getchar'."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Users/EpicuroTech/Documents/IPCA/2022-2023/2S/VC/codigo/VC-P0001/VC-P0001/main.c"
+                },
+                "region": {
+                  "startLine": 134,
+                  "startColumn": 2,
+                  "endLine": 134,
+                  "endColumn": 2
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "main",
+                  "decoratedName": "main",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis",
+          "version": "14.34.31937.0",
+          "informationUri": "https://aka.ms/cpp/ca"
+        }
+      },
+      "invocations": [
+        {
+          "executionSuccessful": true
+        }
+      ],
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///C:/Users/EpicuroTech/Documents/IPCA/2022-2023/2S/VC/codigo/VC-P0001/VC-P0001/main.c"
+          },
+          "roles": [
+            "analysisTarget",
+            "resultFile"
+          ],
+          "hashes": {
+            "sha-256": "335f0b3c30b18588e2089834e3ba6b1c111402ef7ae4c6eeda2f1949a065bf10"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/epicurotech/documents/ipca/2022-2023/2s/vc/codigo/vc-p0001/vc-p0001/vc.h"
+          },
+          "hashes": {
+            "sha-256": "9672f5f57761d005513af267c2e234dafc21b354c8931da3a6adb8d2e8f1fab2"
+          }
+        }
+      ]
+    }
+  ]
+}

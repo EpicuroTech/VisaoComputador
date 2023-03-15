@@ -363,6 +363,8 @@ int vc_write_image(char *filename, IVC *image)
 	return 0;
 }
 
+//=================================================================================
+
 // FUNÇÃO AULA ESPAÇOS DE COR  ---GRAY---
 // VC04_15
 int vc_gray_negative(IVC* srcdst)
@@ -418,6 +420,434 @@ int vc_rgb_negative(IVC* srcdst)
 			data[pos] = 255 - data[pos];
 			data[pos+1] = 255 - data[pos+1];
 			data[pos+2] = 255 - data[pos+2];
+		}
+	}
+	return 1;
+}
+//Matem RED e o resto com o mesmo valor de RED ---RGB_RED_GRAY---
+//VC04_20
+int vc_rgb_get_red_gray(IVC* srcdst)
+{
+	unsigned char* data = (unsigned char*)srcdst->data;
+	int with = srcdst->width;
+	int height = srcdst->height;
+	int bytesperline = srcdst->bytesperline;
+	int channels = srcdst->channels;
+	int x, y;
+	long int pos;
+
+	//verificaçao de erros
+	if ((srcdst->width <= 0) || (srcdst->height <= 0) || (srcdst->data == NULL)) return 0;
+	if (channels != 3) return 0;
+
+	//inverter imagem RGB
+
+	for (y = 0; y < height; y++)
+	{
+		for (x = 0; x < with; x++)
+		{
+			pos = y * bytesperline + x * channels;
+			//data[pos] = 255 - data[pos];
+			data[pos + 1] = data[pos];
+			data[pos + 2] = data[pos];
+		}
+	}
+	return 1;
+}
+
+
+//Matem Green e o resto com o mesmo valor de GREEN ---RGB_GREEN_GRAY---
+//VC04_20
+int vc_rgb_get_green_gray(IVC* srcdst)
+{
+	unsigned char* data = (unsigned char*)srcdst->data;
+	int with = srcdst->width;
+	int height = srcdst->height;
+	int bytesperline = srcdst->bytesperline;
+	int channels = srcdst->channels;
+	int x, y;
+	long int pos;
+
+	//verificaçao de erros
+	if ((srcdst->width <= 0) || (srcdst->height <= 0) || (srcdst->data == NULL)) return 0;
+	if (channels != 3) return 0;
+
+	//inverter imagem RGB
+
+	for (y = 0; y < height; y++)
+	{
+		for (x = 0; x < with; x++)
+		{
+			pos = y * bytesperline + x * channels;
+			data[pos] = data[pos+1];
+			//data[pos + 1] = 0;
+			data[pos + 2] = data[pos+1];
+		}
+	}
+	return 1;
+}
+
+//Matem Blue e o resto o com o mesmo valor de blue ---RGB_BLUE_GRAY---
+//VC04_20
+int vc_rgb_get_blue_gray(IVC* srcdst)
+{
+	unsigned char* data = (unsigned char*)srcdst->data;
+	int with = srcdst->width;
+	int height = srcdst->height;
+	int bytesperline = srcdst->bytesperline;
+	int channels = srcdst->channels;
+	int x, y;
+	long int pos;
+
+	//verificaçao de erros
+	if ((srcdst->width <= 0) || (srcdst->height <= 0) || (srcdst->data == NULL)) return 0;
+	if (channels != 3) return 0;
+
+	//inverter imagem RGB
+
+	for (y = 0; y < height; y++)
+	{
+		for (x = 0; x < with; x++)
+		{
+			pos = y * bytesperline + x * channels;
+			data[pos] = data[pos+2];
+			data[pos + 1] = data[pos+2];
+			//data[pos + 2] = 0;
+		}
+	}
+	return 1;
+}
+//Matem RED e o resto a 0
+//VC04_20
+int vc_rgb_get_red(IVC* srcdst)
+{
+	unsigned char* data = (unsigned char*)srcdst->data;
+	int with = srcdst->width;
+	int height = srcdst->height;
+	int bytesperline = srcdst->bytesperline;
+	int channels = srcdst->channels;
+	int x, y;
+	long int pos;
+
+	//verificaçao de erros
+	if ((srcdst->width <= 0) || (srcdst->height <= 0) || (srcdst->data == NULL)) return 0;
+	if (channels != 3) return 0;
+
+	//inverter imagem RGB
+
+	for (y = 0; y < height; y++)
+	{
+		for (x = 0; x < with; x++)
+		{
+			pos = y * bytesperline + x * channels;
+			//data[pos] = data[pos];
+			data[pos + 1] = 0;
+			data[pos + 2] = 0;
+		}
+	}
+	return 1;
+}
+//Matem GREEN e o resto a 0
+//VC04_20
+int vc_rgb_get_green(IVC* srcdst)
+{
+	unsigned char* data = (unsigned char*)srcdst->data;
+	int with = srcdst->width;
+	int height = srcdst->height;
+	int bytesperline = srcdst->bytesperline;
+	int channels = srcdst->channels;
+	int x, y;
+	long int pos;
+
+	//verificaçao de erros
+	if ((srcdst->width <= 0) || (srcdst->height <= 0) || (srcdst->data == NULL)) return 0;
+	if (channels != 3) return 0;
+
+	//inverter imagem RGB
+
+	for (y = 0; y < height; y++)
+	{
+		for (x = 0; x < with; x++)
+		{
+			pos = y * bytesperline + x * channels;
+			data[pos] = 0;
+			//data[pos + 1] = data[pos + 1];
+			data[pos + 2] = 0;
+		}
+	}
+	return 1;
+}
+//Matem BLUE e o resto a 0
+//VC04_20
+int vc_rgb_get_blue(IVC* srcdst)
+{
+	unsigned char* data = (unsigned char*)srcdst->data;
+	int with = srcdst->width;
+	int height = srcdst->height;
+	int bytesperline = srcdst->bytesperline;
+	int channels = srcdst->channels;
+	int x, y;
+	long int pos;
+
+	//verificaçao de erros
+	if ((srcdst->width <= 0) || (srcdst->height <= 0) || (srcdst->data == NULL)) return 0;
+	if (channels != 3) return 0;
+
+	//inverter imagem RGB
+
+	for (y = 0; y < height; y++)
+	{
+		for (x = 0; x < with; x++)
+		{
+			pos = y * bytesperline + x * channels;
+			data[pos] = 0;
+			data[pos + 1] = 0;
+			//data[pos + 2] = data[pos + 2];
+		}
+	}
+	return 1;
+}
+//RGB TO GRAY
+//
+//VC04_23
+int vc_rgb_to_gray(IVC* src, IVC* dst)
+{
+	unsigned char* datasrc = (unsigned char*)src->data;
+	int bytesperline_src = src->width * src->channels;
+	int channels_src = src->channels;
+	unsigned char* datadst = (unsigned char*)dst->data;
+	int bytesperline_dst = dst->width * dst->channels;
+	int channels_dst = dst->channels;
+	int width = src->width;
+	int height = src->height;
+	int x, y;
+	long int pos_src, pos_dst;
+	float rf, gf, bf;
+
+	//verificação de erros
+	if ((src->width <= 0) || (src->height <= 0) || (src->data == NULL)) return 0;
+	if ((src->width != dst->width) || (src->height != dst->height)) return 0;
+	if ((src->channels != 3) || (dst->channels != 1)) return 0;
+
+	for (y = 0;y < height;y++)
+	{
+		for (x = 0;x < width; x++)
+		{
+			pos_src = y * bytesperline_src + x * channels_src;
+			pos_dst = y * bytesperline_dst + x * channels_dst;
+
+			rf = (float)datasrc[pos_src];
+			gf = (float)datasrc[pos_src + 1];
+			bf = (float)datasrc[pos_src + 2];
+
+			datadst[pos_dst] = (unsigned char)((rf * 0.299) + (gf * 0.587) + (bf * 0.114));
+		}
+	}
+	return 1;
+}
+
+//RGB TO HSV
+//VC04_33
+int vc_rgb_to_hsv(IVC* src, IVC* dst)
+{
+	// info source
+	unsigned char* datasrc = (unsigned char*)src->data;
+	int bytesperline_src = src->width * src->channels;
+	int channels_src = src->channels;
+
+	//info destino
+	unsigned char* datadst = (unsigned char*)dst->data;
+	int bytesperline_dst = dst->width * dst->channels;
+	int channels_dst = dst->channels;
+
+	// medidas
+	int width = src->width;
+	int height = src->height;
+
+	//auxiliares gerais
+	int x, y;
+	long int pos_src, pos_dst;
+	float rf, gf, bf;
+
+	//auxiliares hsv H = hue; S=(auxmax-auxmin)/auxmax; V= auxmax;
+	float auxmax, auxmin, hue;
+
+	//verificação de erros
+	if ((src->width <= 0) || (src->height <= 0) || (src->data == NULL)) return 0;
+	if ((src->width != dst->width) || (src->height != dst->height)) return 0;
+	if ((src->channels != 3) || (dst->channels != 3)) return 0;
+
+	for (y = 0;y < height;y++)
+	{
+		for (x = 0;x < width; x++)
+		{
+			pos_src = y * bytesperline_src + x * channels_src;//posicao da source
+			pos_dst = y * bytesperline_dst + x * channels_dst;//posicao destino
+
+			rf = (float)datasrc[pos_src];
+			gf = (float)datasrc[pos_src+1];
+			bf = (float)datasrc[pos_src+2];
+
+			auxmax = rf;//inicializar igual a rf posicao i=0
+			auxmin = rf;
+			for (int i = 0; i < 2;i++)
+			{
+				if (auxmax < (float)datasrc[pos_src+i+1])
+				{
+					auxmax = (float)datasrc[pos_src+i+1];
+				}
+				if (auxmin > (float)datasrc[pos_src+i+1])
+				{
+					auxmin = (float)datasrc[pos_src+i+1];
+				}
+			}
+
+			if ((rf == gf) && (gf == bf)) hue = 0;
+
+			else if((rf==auxmax) && (gf >= bf))//R e blue min
+			{
+				hue = 60 * (gf - bf) / (auxmax - auxmin);
+			}
+			else if ((rf == auxmax) && (bf >= gf))//R green min
+			{
+				hue = 360 + 60 * (gf - bf) / (auxmax - auxmin);
+			}
+			else if (gf == auxmax) //green max
+			{
+				hue = 120 + 60 * (bf-rf) / (auxmax - auxmin);
+			}
+			else if (bf == auxmax) //blue max
+			{
+				hue = 240 + 60 * (rf-gf) / (auxmax - auxmin);
+			}
+
+			//hue
+			datadst[pos_dst] = (unsigned char)((hue*255)/360);//H
+
+			//Saturação
+			if((auxmax-auxmin) == 0 || auxmax == 0) datadst[pos_dst+1] = (unsigned char)0;//S
+			else datadst[pos_dst+1] = (unsigned char)(((auxmax-auxmin)/auxmax)*255);
+
+			//value
+			datadst[pos_dst+2] = (unsigned char)auxmax;//V
+
+		}
+	}
+	return 1;
+}
+//VC04_37 HSV SEGMENTAÇÃO
+int vc_hsv_segmentation(IVC* src, IVC* dst, int hmin, int hmax, int smin, int smax, int vmin, int vmax)
+{
+	// info source
+	unsigned char* datasrc = (unsigned char*)src->data;
+	int bytesperline_src = src->width * src->channels;
+	int channels_src = src->channels;
+
+	//info destino
+	unsigned char* datadst = (unsigned char*)dst->data;
+	int bytesperline_dst = dst->width * dst->channels;
+	int channels_dst = dst->channels;
+
+	// medidas
+	int width = src->width;
+	int height = src->height;
+
+	//auxiliares gerais
+	int x, y;
+	long int pos_src, pos_dst;
+	float hf, sf, vf;
+
+	//verificação de erros
+	if ((src->width <= 0) || (src->height <= 0) || (src->data == NULL)) return 0;
+	if ((src->width != dst->width) || (src->height != dst->height)) return 0;
+	if ((src->channels != 3) || (dst->channels != 1)) return 0;
+
+	for (y = 0;y < height;y++)
+	{
+		for (x = 0;x < width; x++)
+		{
+			pos_src = y * bytesperline_src + x * channels_src;//posicao da source
+			pos_dst = y * bytesperline_dst + x * channels_dst;//posicao destino
+
+			hf = (float)datasrc[pos_src];
+			sf = (float)datasrc[pos_src + 1];
+			vf = (float)datasrc[pos_src + 2];
+
+			//h vem de 0 a 360 enquanto S e V vem de 0 a 100
+			//colocar imagem a preto e branco
+			if ((hf > (float)hmin*255/360 && hf < (float)hmax * 255 / 360) && (sf > (float)smin * 255 / 100 && sf < (float)smax * 255 / 100) && (vf > (float)vmin * 255 / 100 && vf < (float)vmax * 255 / 100))
+			{
+				
+				datadst[pos_dst] = (unsigned char)255;
+			}
+			else datadst[pos_dst] = (unsigned char)0;
+		}
+	}
+	return 1;
+}
+//VC04_42
+int vc_scale_gray_to_rgb(IVC* src, IVC* dst)
+{
+	// info source
+	unsigned char* datasrc = (unsigned char*)src->data;
+	int bytesperline_src = src->width * src->channels;
+	int channels_src = src->channels;
+
+	//info destino
+	unsigned char* datadst = (unsigned char*)dst->data;
+	int bytesperline_dst = dst->width * dst->channels;
+	int channels_dst = dst->channels;
+
+	// medidas
+	int width = src->width;
+	int height = src->height;
+
+	//auxiliares gerais
+	int x, y;
+	long int pos_src, pos_dst;
+	float rf, gf, bf, gray;
+
+	//auxiliares hsv H = hue; S=(auxmax-auxmin)/auxmax; V= auxmax;
+	float auxmax, auxmin, hue;
+
+	//verificação de erros
+	if ((src->width <= 0) || (src->height <= 0) || (src->data == NULL)) return 0;
+	if ((src->width != dst->width) || (src->height != dst->height)) return 0;
+	if ((src->channels != 1) || (dst->channels != 3)) return 0;
+
+	for (y = 0;y < height;y++)
+	{
+		for (x = 0;x < width; x++)
+		{
+			pos_src = y * bytesperline_src + x * channels_src;//posicao da source
+			pos_dst = y * bytesperline_dst + x * channels_dst;//posicao destino
+
+			gray = (float)datasrc[pos_src];
+
+			if (gray < 64)
+			{
+				datadst[pos_dst] = 0;
+				datadst[pos_dst + 1]= gray * 4;
+				datadst[pos_dst + 2]=255;
+			}
+			else if (gray < 128)
+			{
+				datadst[pos_dst] = 0;
+				datadst[pos_dst + 1] = 255;
+				datadst[pos_dst + 2] = 255 - gray * 4;
+			}
+			else if (gray < 192)
+			{
+				datadst[pos_dst] = gray * 4;
+				datadst[pos_dst + 1] = 255;
+				datadst[pos_dst + 2] = 0;
+			}
+			else if (gray <= 255)
+			{
+				datadst[pos_dst] = 255;
+				datadst[pos_dst + 1] = 255 - gray * 4;
+				datadst[pos_dst + 2] = 0;
+			}
 		}
 	}
 	return 1;

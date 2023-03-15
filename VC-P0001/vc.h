@@ -40,3 +40,22 @@ int vc_write_image(char *filename, IVC *image);
 // FUNÇÃO AULA ESPAÇOS DE COR VC04
 int vc_gray_negative(IVC* srcdst);
 int vc_rgb_negative(IVC* srcdst);
+// VC04_20
+int vc_rgb_get_red_gray(IVC* srcdst);
+int vc_rgb_get_green_gray(IVC* srcdst);
+int vc_rgb_get_blue_gray(IVC* srcdst);
+
+int vc_rgb_get_red(IVC* srcdst);
+int vc_rgb_get_green(IVC* srcdst);
+int vc_rgb_get_blue(IVC* srcdst);
+
+//VC04_23
+int vc_rgb_to_gray(IVC* src, IVC* dst);
+
+//VC04_33
+int vc_rgb_to_hsv(IVC* src, IVC* dst);
+
+//VC04_37
+int vc_hsv_segmentation(IVC* src, IVC* dst, int hmin, int hmax, int smin, int smax, int vmin, int vmax);
+//VC04_42
+int vc_scale_gray_to_rgb(IVC* src, IVC* dst);
