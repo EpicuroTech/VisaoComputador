@@ -1,7 +1,4 @@
-﻿  main.c
-C:\Users\EpicuroTech\Documents\IPCA\2022-2023\2S\VC\codigo\VC-P0001\VC-P0001\main.c(116,6): warning C4101: 'i': unreferenced local variable
-C:\Users\EpicuroTech\Documents\IPCA\2022-2023\2S\VC\codigo\VC-P0001\VC-P0001\main.c(155,6): warning C4101: 'i': unreferenced local variable
-C:\Users\EpicuroTech\Documents\IPCA\2022-2023\2S\VC\codigo\VC-P0001\VC-P0001\main.c(191,6): warning C4101: 'i': unreferenced local variable
-C:\Users\EpicuroTech\Documents\IPCA\2022-2023\2S\VC\codigo\VC-P0001\VC-P0001\main.c(228,6): warning C4101: 'i': unreferenced local variable
-C:\Users\EpicuroTech\Documents\IPCA\2022-2023\2S\VC\codigo\VC-P0001\VC-P0001\main.c(264,6): warning C4101: 'i': unreferenced local variable
+﻿  vc.c
+C:\Users\EpicuroTech\Documents\IPCA\2022-2023\2S\VC\codigo\VC-P0001\VC-P0001\vc.c(245,12): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\EpicuroTech\Documents\IPCA\2022-2023\2S\VC\codigo\VC-P0001\VC-P0001\vc.c(285,12): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
   VC-P0001.vcxproj -> C:\Users\EpicuroTech\Documents\IPCA\2022-2023\2S\VC\codigo\VC-P0001\x64\Debug\VC-P0001.exe

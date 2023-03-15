@@ -805,10 +805,8 @@ int vc_scale_gray_to_rgb(IVC* src, IVC* dst)
 	//auxiliares gerais
 	int x, y;
 	long int pos_src, pos_dst;
-	float rf, gf, bf, gray;
+	float gray;
 
-	//auxiliares hsv H = hue; S=(auxmax-auxmin)/auxmax; V= auxmax;
-	float auxmax, auxmin, hue;
 
 	//verificação de erros
 	if ((src->width <= 0) || (src->height <= 0) || (src->data == NULL)) return 0;
@@ -826,27 +824,27 @@ int vc_scale_gray_to_rgb(IVC* src, IVC* dst)
 
 			if (gray < 64)
 			{
-				datadst[pos_dst] = 0;
-				datadst[pos_dst + 1]= gray * 4;
-				datadst[pos_dst + 2]=255;
+				datadst[pos_dst] = (unsigned char)0;
+				datadst[pos_dst + 1] = (unsigned char)(gray * 4);
+				datadst[pos_dst + 2] = (unsigned char)255;
 			}
 			else if (gray < 128)
 			{
-				datadst[pos_dst] = 0;
-				datadst[pos_dst + 1] = 255;
-				datadst[pos_dst + 2] = 255 - gray * 4;
+				datadst[pos_dst] = (unsigned char)0;
+				datadst[pos_dst + 1] = (unsigned char)255;
+				datadst[pos_dst + 2] = (unsigned char)(255 - gray * 4);
 			}
 			else if (gray < 192)
 			{
-				datadst[pos_dst] = gray * 4;
-				datadst[pos_dst + 1] = 255;
-				datadst[pos_dst + 2] = 0;
+				datadst[pos_dst] = (unsigned char)(gray * 4);
+				datadst[pos_dst + 1] = (unsigned char)255;
+				datadst[pos_dst + 2] = (unsigned char)0;
 			}
 			else if (gray <= 255)
 			{
-				datadst[pos_dst] = 255;
-				datadst[pos_dst + 1] = 255 - gray * 4;
-				datadst[pos_dst + 2] = 0;
+				datadst[pos_dst] = (unsigned char)255;
+				datadst[pos_dst + 1] = (unsigned char)(255 - gray * 4);
+				datadst[pos_dst + 2] = (unsigned char)0;
 			}
 		}
 	}
