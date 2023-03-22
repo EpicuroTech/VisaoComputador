@@ -258,7 +258,7 @@ int main04_37(void)
 }
 
 //VC04_42
-int main(void)
+int main04_42(void)
 {
 	IVC* image;
 	int i;
@@ -293,3 +293,102 @@ int main(void)
 	return 0;
 }
 
+//VC05_10
+int main05_10(void)
+{
+	IVC* image;
+
+	//lê imagem
+	image = vc_read_image("images/FLIR/chess.pgm");
+	if (image == NULL)
+	{
+		printf("ERRO -> vc_read_image():\n\tFile not found!\n");
+		getchar();
+		return 0;
+	}
+	
+
+	vc_gray_to_binary(image, 140);
+	vc_write_image("chess.pgm", image);
+
+
+	//limpa memoria
+	vc_image_free(image);
+
+	// Windows
+	system("cmd start /c/FilterGear images/FLIR/chess.pgm"); // Input
+	system("cmd start /c/FilterGear chess.pgm"); // Output
+
+	printf("Press any key to exit...\n");
+	getchar();
+
+	return 0;
+}
+
+//VC05_12
+int main05_12(void)
+{
+	IVC* image;
+
+	//lê imagem
+	image = vc_read_image("images/FLIR/chess.pgm");
+	if (image == NULL)
+	{
+		printf("ERRO -> vc_read_image():\n\tFile not found!\n");
+		getchar();
+		return 0;
+	}
+
+	IVC* resultado;
+	resultado = vc_image_new(image->width, image->height, 1, 1);
+
+	vc_gray_to_binary_global_mean(image, resultado);
+	vc_write_image("chessMEDIA.pgm", resultado);
+
+	//limpa memoria
+	vc_image_free(image);
+	vc_image_free(resultado);
+
+	// Windows abrir imagens com filtergear
+	system("cmd start /c/FilterGear images/FLIR/chess.pgm"); // Input
+	system("cmd start /c/FilterGear chessMEDIA.pgm"); // Output
+
+	printf("Press any key to exit...\n");
+	getchar();
+
+	return 0;
+}
+
+//VC05
+int main(void)
+{
+	IVC* image;
+
+	//lê imagem
+	image = vc_read_image("images/FLIR/chess.pgm");
+	if (image == NULL)
+	{
+		printf("ERRO -> vc_read_image():\n\tFile not found!\n");
+		getchar();
+		return 0;
+	}
+
+	IVC* resultado;
+	resultado = vc_image_new(image->width, image->height, 1, 1);
+
+	vc_gray_to_binary_kernel_midpoint(image, resultado, 25);
+	vc_write_image("chessMEDIA.pgm", resultado);
+
+	//limpa memoria
+	vc_image_free(image);
+	vc_image_free(resultado);
+
+	// Windows abrir imagens com filtergear
+	system("cmd start /c/FilterGear images/FLIR/chess.pgm"); // Input
+	system("cmd start /c/FilterGear chessMEDIA.pgm"); // Output
+
+	printf("Press any key to exit...\n");
+	getchar();
+
+	return 0;
+}
