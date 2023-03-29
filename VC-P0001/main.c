@@ -377,15 +377,15 @@ int main(void)
 	resultado = vc_image_new(image->width, image->height, 1, 1);
 
 	vc_gray_to_binary_kernel_midpoint(image, resultado, 25);
-	vc_write_image("chessMEDIA.pgm", resultado);
+	vc_write_image("chessMidPoint.pgm", resultado);
 
 	//limpa memoria
 	vc_image_free(image);
 	vc_image_free(resultado);
 
 	// Windows abrir imagens com filtergear
-	system("cmd start /c/FilterGear images/FLIR/chess.pgm"); // Input
-	system("cmd start /c/FilterGear chessMEDIA.pgm"); // Output
+	system("cmd start /c/FilterGear images/FLIR/chess.pgm &"); // Input
+	system("cmd start /c/FilterGear chessMidPoint.pgm"); // Output
 
 	printf("Press any key to exit...\n");
 	getchar();

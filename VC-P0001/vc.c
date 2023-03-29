@@ -954,8 +954,9 @@ int vc_gray_to_binary_kernel_midpoint(IVC* src, IVC* dst, int kernel_size)
 	int height = src->height;
 
 	//auxiliares gerais
-	int x, y, x2, y2, ksize, min=255, max=0, treshold;
-	long int pos_src, pos_dst;
+	int x, y, x2, y2, ksize;
+	long int pos_src, pos_dst, pos_src2;
+	float treshold, min, max;
 
 
 	//verificação de erros
@@ -968,31 +969,38 @@ int vc_gray_to_binary_kernel_midpoint(IVC* src, IVC* dst, int kernel_size)
 	{
 		for (x = 0;x < width; x++)
 		{
+			min = 255;
+			max = 0;
 			pos_src = y * bytesperline_src + x * channels_src;//posicao da source
 			pos_dst = y * bytesperline_dst + x * channels_dst;//posicao destino
 
-			for (y2 = -ksize; y2 <= ksize;y2++)
+
+			for (y2 = (y - ksize); y2 <= (y + ksize);y2++)
 			{
-				for (x2 = -ksize; x2 <= ksize;x2++)
+				for (x2 = (x - ksize); x2 <= (x + ksize);x2++)
 				{
-					pos_src = y2 * bytesperline_src + x2 * channels_src;//posicao da source
-					pos_dst = y2 * bytesperline_dst + x2 * channels_dst;//posicao destino
-					if (max <= datadst[pos_src])
+					if ((y2 >= 0) && (y2 < height) && (x2 >= 0) && (x2 < width))
 					{
-						max = datadst[pos_src];
+
+						pos_src2 = y2 * bytesperline_src + x2 * channels_src;//posicao da source
+						//pos_dst = y2 * bytesperline_dst + x2 * channels_dst;//posicao destino
+						if (max <= (float)datasrc[pos_src2])
+						{
+							max = (float)datasrc[pos_src2];
+						}
+						if (min >= (float)datasrc[pos_src2])
+						{
+							min = (float)datasrc[pos_src2];
+						}
 					}
-					if (min >= datadst[pos_src])
-					{
-						min = datadst[pos_src];
-					}
+					else datadst[pos_dst] = 0;
 				}
 			}
-			treshold = (1 / 2) * (min + max);
-
-			if (datasrc[pos_src] < treshold) datadst[pos_dst] = 0;
+			treshold = (min + max)*(0.5);//mid point 
+			if ((float)datasrc[pos_src] < treshold) datadst[pos_dst] = 0;
 			else datadst[pos_dst] = 1;
+			
 		}
 	}
 	return 1;
 }
-//midpoin t=(1/2)*(min+max)

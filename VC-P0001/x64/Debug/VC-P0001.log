@@ -1,6 +1,1 @@
-﻿  vc.c
-C:\Users\EpicuroTech\Documents\IPCA\2022-2023\2S\VC\codigo\VC-P0001\VC-P0001\vc.c(245,12): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\EpicuroTech\Documents\IPCA\2022-2023\2S\VC\codigo\VC-P0001\VC-P0001\vc.c(285,12): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\EpicuroTech\Documents\IPCA\2022-2023\2S\VC\codigo\VC-P0001\VC-P0001\vc.c(921,26): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
-C:\Users\EpicuroTech\Documents\IPCA\2022-2023\2S\VC\codigo\VC-P0001\VC-P0001\vc.c(925,15): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-  VC-P0001.vcxproj -> C:\Users\EpicuroTech\Documents\IPCA\2022-2023\2S\VC\codigo\VC-P0001\x64\Debug\VC-P0001.exe
+﻿  VC-P0001.vcxproj -> C:\Users\EpicuroTech\Documents\IPCA\2022-2023\2S\VC\codigo\VC-P0001\x64\Debug\VC-P0001.exe
