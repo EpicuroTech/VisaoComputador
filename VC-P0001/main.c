@@ -293,13 +293,13 @@ int main04_42(void)
 	return 0;
 }
 
-//VC05_10
-int main05_10(void)
+//VC05_10_treshold
+int main_0510(void)
 {
 	IVC* image;
 
 	//lê imagem
-	image = vc_read_image("images/FLIR/chess.pgm");
+	image = vc_read_image("brain.pgm");
 	if (image == NULL)
 	{
 		printf("ERRO -> vc_read_image():\n\tFile not found!\n");
@@ -308,16 +308,16 @@ int main05_10(void)
 	}
 	
 
-	vc_gray_to_binary(image, 140);
-	vc_write_image("chess.pgm", image);
+	vc_gray_to_binary(image, 85);
+	vc_write_image("brainTRESHOLD.pgm", image);
 
 
 	//limpa memoria
 	vc_image_free(image);
 
 	// Windows
-	system("cmd start /c/FilterGear images/FLIR/chess.pgm"); // Input
-	system("cmd start /c/FilterGear chess.pgm"); // Output
+	system("cmd start /c/FilterGear brain.pgm"); // Input
+	system("cmd start /c/FilterGear brainTRESHOLD.pgm"); // Output
 
 	printf("Press any key to exit...\n");
 	getchar();
@@ -325,13 +325,13 @@ int main05_10(void)
 	return 0;
 }
 
-//VC05_12
-int main05_12(void)
+//VC05_12_treshsold
+int main_05_12(void)
 {
 	IVC* image;
 
 	//lê imagem
-	image = vc_read_image("images/FLIR/chess.pgm");
+	image = vc_read_image("brain.pgm");
 	if (image == NULL)
 	{
 		printf("ERRO -> vc_read_image():\n\tFile not found!\n");
@@ -343,15 +343,15 @@ int main05_12(void)
 	resultado = vc_image_new(image->width, image->height, 1, 1);
 
 	vc_gray_to_binary_global_mean(image, resultado);
-	vc_write_image("chessMEDIA.pgm", resultado);
+	vc_write_image("brainTRESHOLD.pgm", resultado);
 
 	//limpa memoria
 	vc_image_free(image);
 	vc_image_free(resultado);
 
 	// Windows abrir imagens com filtergear
-	system("cmd start /c/FilterGear images/FLIR/chess.pgm"); // Input
-	system("cmd start /c/FilterGear chessMEDIA.pgm"); // Output
+	system("cmd start /c/FilterGear brain.pgm"); // Input
+	system("cmd start /c/FilterGear brainTRESHOLD.pgm"); // Output
 
 	printf("Press any key to exit...\n");
 	getchar();
@@ -359,8 +359,8 @@ int main05_12(void)
 	return 0;
 }
 
-//VC05
-int main(void)
+//VC05_12midpoint
+int main_05_12midpoint(void)
 {
 	IVC* image;
 
@@ -386,6 +386,108 @@ int main(void)
 	// Windows abrir imagens com filtergear
 	system("cmd start /c/FilterGear images/FLIR/chess.pgm &"); // Input
 	system("cmd start /c/FilterGear chessMidPoint.pgm"); // Output
+
+	printf("Press any key to exit...\n");
+	getchar();
+
+	return 0;
+}
+
+//VC06_18 dilatacao erosao
+int main_vc0618(void)
+{
+	IVC* image;
+
+	//lê imagem
+	image = vc_read_image("images/lenna.pgm");
+	if (image == NULL)
+	{
+		printf("ERRO -> vc_read_image():\n\tFile not found!\n");
+		getchar();
+		return 0;
+	}
+
+	IVC* resultado;
+	resultado = vc_image_new(image->width, image->height, 1, image->levels);
+
+	vc_binary_dilate(image, resultado, 3);
+	vc_write_image("lennaDIL.pgm", resultado);
+
+	//limpa memoria
+	vc_image_free(image);
+	vc_image_free(resultado);
+
+	// Windows abrir imagens com filtergear
+	system("cmd start /c/FilterGear images/lenna.pgm &"); // Input
+	system("cmd start /c/FilterGear lennaDIL.pgm"); // Output
+
+	printf("Press any key to exit...\n");
+	getchar();
+
+	return 0;
+}
+
+//VC08_22 Histogramas SHOW GRAY int vc_gray_histogram_show(IVC *src, IVC *dst);
+int mainVC08_21(void)
+{
+	IVC* image;
+
+	//lê imagem
+	image = vc_read_image("images/barbara2.pgm");
+	if (image == NULL)
+	{
+		printf("ERRO -> vc_read_image():\n\tFile not found!\n");
+		getchar();
+		return 0;
+	}
+
+	IVC* resultado;
+	resultado = vc_image_new(image->width, image->height, 1, image->levels);
+
+	vc_gray_histogram_show(image, resultado);
+	vc_write_image("barbara2HistGrayShow.pgm", resultado);
+
+	//limpa memoria
+	vc_image_free(image);
+	vc_image_free(resultado);
+
+	// Windows abrir imagens com filtergear
+	system("cmd start /c/FilterGear images/barbara2.pgm &"); // Input
+	system("cmd start /c/FilterGear barbara2HistGrayShow.pgm"); // Output
+
+	printf("Press any key to exit...\n");
+	getchar();
+
+	return 0;
+}
+
+//VC08_23 Histogramas EQUALIZER GRAY int vc_gray_histogram_equalization(IVC *src, IVC *dst);
+int main(void)
+{
+	IVC* image;
+
+	//lê imagem
+	image = vc_read_image("images/barbara2.pgm");
+	if (image == NULL)
+	{
+		printf("ERRO -> vc_read_image():\n\tFile not found!\n");
+		getchar();
+		return 0;
+	}
+
+	IVC* resultado;
+	resultado = vc_image_new(image->width, image->height, 1, image->levels);
+
+	vc_gray_histogram_equalization(image, resultado);
+	vc_write_image("barbara2HistGrayEQ.pgm", resultado);
+
+	//limpa memoria
+	vc_image_free(image);
+	vc_image_free(resultado);
+
+	// Windows abrir imagens com filtergear
+	system("cmd start /c/FilterGear images/barbara2.pgm &"); // Input
+	system("cmd start /c/FilterGear barbara2HistGrayEQ.pgm"); // Output
 
 	printf("Press any key to exit...\n");
 	getchar();

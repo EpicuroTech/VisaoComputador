@@ -936,8 +936,8 @@ int vc_gray_to_binary_global_mean(IVC* src, IVC* dst)
 	return 1;
 }
 
-//VC05_  GRAY PARA BINARIO COM KERNEL
-int vc_gray_to_binary_kernel_midpoint(IVC* src, IVC* dst, int kernel_size)
+//VC05_12midpoint  GRAY PARA BINARIO COM KERNEL
+int vc_gray_to_binary_kernel_midpoint(IVC* src, IVC* dst, int kernel)
 {
 	// info source
 	unsigned char* datasrc = (unsigned char*)src->data;
@@ -964,7 +964,7 @@ int vc_gray_to_binary_kernel_midpoint(IVC* src, IVC* dst, int kernel_size)
 	if ((src->width != dst->width) || (src->height != dst->height)) return 0;
 	if ((src->channels != 1) || (dst->channels != 1)) return 0;
 
-	ksize = (kernel_size - 1) / 2;
+	ksize = (kernel - 1) / 2;
 	for (y = 0;y < height;y++)
 	{
 		for (x = 0;x < width; x++)
@@ -1002,5 +1002,228 @@ int vc_gray_to_binary_kernel_midpoint(IVC* src, IVC* dst, int kernel_size)
 			
 		}
 	}
+	return 1;
+}
+//VC06_18 dilatacao erosao
+int vc_binary_dilate(IVC* src, IVC* dst, int kernel)
+{
+	// info source
+	unsigned char* datasrc = (unsigned char*)src->data;
+	int bytesperline_src = src->width * src->channels;
+	int channels_src = src->channels;
+
+	//info destino
+	unsigned char* datadst = (unsigned char*)dst->data;
+	int bytesperline_dst = dst->width * dst->channels;
+	int channels_dst = dst->channels;
+
+	// medidas
+	int width = src->width;
+	int height = src->height;
+
+	//auxiliares gerais
+	int x, y, x2, y2, ksize;
+	long int pos_src, pos_dst, pos_src2;
+	int max;
+
+
+	//verificação de erros
+	if ((src->width <= 0) || (src->height <= 0) || (src->data == NULL)) return 0;
+	if ((src->width != dst->width) || (src->height != dst->height)) return 0;
+	if ((src->channels != 1) || (dst->channels != 1)) return 0;
+
+	ksize = (kernel - 1) / 2;
+	for (y = 0;y < height;y++)
+	{
+		for (x = 0;x < width; x++)
+		{
+			max = 0;
+			pos_src = y * bytesperline_src + x * channels_src;//posicao da source
+			pos_dst = y * bytesperline_dst + x * channels_dst;//posicao destino
+
+			////limites da imagem com o kernel
+			for (y2 = (y - ksize); y2 <= (y + ksize);y2++)
+			{
+				if ((y2 >= 0) && (y2 < height))
+				{
+					pos_src2 = y2 * bytesperline_src + x * channels_src;//posicao da source
+					if (max <= datasrc[pos_src2])
+					{
+						max = datasrc[pos_src2];
+					}
+				}
+				
+			}
+			////limites da imagem com o kernel
+			for (x2 = (x - ksize); x2 <= (x + ksize);x2++)
+			{
+				if ((x2 >= 0) && (x2 < width))
+				{
+					pos_src2 = y * bytesperline_src + x2 * channels_src;//posicao da source
+					if (max <= datasrc[pos_src2])
+					{
+						max = datasrc[pos_src2];
+					}
+				}
+				
+			}
+			datadst[pos_dst] = max;
+		}
+	}
+	return 1;
+}
+//int vc_binary_erode(IVC* src, IVC* dst, int kernel);
+
+//VC08_22 Histogramas GRAY
+int vc_gray_histogram_show(IVC* src, IVC* dst)
+{	
+	// info source
+	unsigned char* datasrc = (unsigned char*)src->data;
+	int bytesperline_src = src->width * src->channels;
+	int channels_src = src->channels;
+
+	//info destino
+	unsigned char* datadst = (unsigned char*)dst->data;
+	int bytesperline_dst = dst->width * dst->channels;
+	int channels_dst = dst->channels;
+
+	// medidas
+	int width = src->width;
+	int height = src->height;
+
+	//auxiliares gerais
+	int x, y, hist[256] = {0}, max = 0;
+	long int pos_src, pos_dst;
+	int total = height * width;
+	float pdf[256];
+
+
+	//verificação de erros
+	if ((src->width <= 0) || (src->height <= 0) || (src->data == NULL)) return 0;
+	if ((src->width != dst->width) || (src->height != dst->height)) return 0;
+	if ((src->channels != 1) || (dst->channels != 1)) return 0;
+
+	for (y = 0;y < height;y++)
+	{
+		for (x = 0;x < width; x++)
+		{
+			pos_src = y * bytesperline_src + x * channels_src;//posicao da source
+			pos_dst = y * bytesperline_dst + x * channels_dst;//posicao destino
+
+			//conta ocorrencias de cada valor de pixel
+			hist[datasrc[pos_src]]++;
+			for (int i = 0; i < 256; i++)
+			{
+				if (hist[i] >= max) max = hist[i];
+			}
+		}
+	}
+	for (int i = 0; i < 256; i++)
+	{
+		pdf[i] = (float)hist[i] / max;//total para equali...
+	}
+	////testes print ocorrencias
+	for (int i = 0; i < 256; i++)
+	{
+		printf("Valor: %d, tem %d ocorrencias.\n", i, hist[i]);
+		printf("Valor: %d, tem %f ocorrencias.\n", i, pdf[i]);
+	}
+	//--------------------------------------------------------
+	// Gera o grafico com o histograma
+	for (int i = 0, x = (width - 256) / 2; i < 256; i++, x++)
+	{
+		for (y = height - 1; y > height - 1 - pdf[i] * height; y--)
+		{
+			datadst[y * bytesperline_dst + x * channels_dst] = 255;
+		}
+	}
+	
+	// Desenha linhas de inicio (itensidade = 0) e fim (intensidade = 255)
+	for (y = 0; y < height - 1; y++)
+	{
+		datadst[y * bytesperline_dst + ((width - 256) / 2 - 1) * channels_dst] = 127;
+		datadst[y * bytesperline_dst + ((width + 256) / 2 + 1) * channels_dst] = 127;
+	}
+	
+	//---------------------------------------------------------
+	return 1;
+}
+
+
+//VC08_23 Histogramas EQUALIZER GRAY
+int vc_gray_histogram_equalization(IVC* src, IVC* dst)
+{
+	// info source
+	unsigned char* datasrc = (unsigned char*)src->data;
+	int bytesperline_src = src->width * src->channels;
+	int channels_src = src->channels;
+
+	//info destino
+	unsigned char* datadst = (unsigned char*)dst->data;
+	int bytesperline_dst = dst->width * dst->channels;
+	int channels_dst = dst->channels;
+
+	// medidas
+	int width = src->width;
+	int height = src->height;
+
+	//auxiliares gerais
+	int x, y, hist[256] = { 0 }, max = 0;
+	long int pos_src, pos_dst;
+	int total = height * width;//maximo de pixeis
+	float pdf[256], min = 256, cdf[256];
+
+
+	//verificação de erros
+	if ((src->width <= 0) || (src->height <= 0) || (src->data == NULL)) return 0;
+	if ((src->width != dst->width) || (src->height != dst->height)) return 0;
+	if ((src->channels != 1) || (dst->channels != 1)) return 0;
+
+	for (y = 0;y < height;y++)
+	{
+		for (x = 0;x < width; x++)
+		{
+			pos_src = y * bytesperline_src + x * channels_src;//posicao da source
+			pos_dst = y * bytesperline_dst + x * channels_dst;//posicao destino
+
+			//conta ocorrencias de cada valor de pixel
+			hist[datasrc[pos_src]]++;
+			//for (int i = 0; i < 256; i++)
+			//{
+			//	if (hist[i] >= max) max = hist[i];//saber qual é o valor maximo
+			//}
+		}
+	}
+	for (int i = 0; i < 256; i++)
+	{
+		pdf[i] = (float)hist[i] / total;//total para equali...
+		if ((pdf[i] < min) && (pdf[i] != 0)) min = pdf[i];//saber minimo do pdf
+	}
+
+	for (int i = 0; i < 256; i++)
+	{
+		if (i != 0) cdf[i] = cdf[i - 1] + pdf[i];//acumulada
+		else cdf[0] = pdf[0];
+	}
+	////testes print ocorrencias
+	for (int i = 0; i < 256; i++)
+	{
+		printf("Valor: %d, tem %d ocorrencias.\n", i, hist[i]);
+		printf("Valor: %d, tem %f ocorrencias.\n", i, pdf[i]);
+		printf("Valor: %d, tem %f ocorrencias.\n", i, cdf[i]);
+	}
+	//--------------------------------------------------------
+	//GERAR IMAGEM
+	for (y = 0;y < height;y++)
+	{
+		for (x = 0;x < width; x++)
+		{
+			pos_src = y * bytesperline_src + x * channels_src;//posicao da source
+			pos_dst = y * bytesperline_dst + x * channels_dst;//posicao destino
+
+			datadst[y * bytesperline_dst + x * channels_dst] = ((cdf[datasrc[pos_src]]-min)/1-min)*(255-1);
+		}
+	}
+	//---------------------------------------------------------
 	return 1;
 }

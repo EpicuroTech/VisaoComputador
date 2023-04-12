@@ -64,5 +64,15 @@ int vc_gray_to_binary(IVC* srcdst, int threshold);
 //VC05_12
 int vc_gray_to_binary_global_mean(IVC* src, IVC* dst);
 
-//VC05
-int vc_gray_to_binary_kernel_midpoint(IVC* src, IVC* dst, int kernel_size);
+//VC05_12_midpoint
+int vc_gray_to_binary_kernel_midpoint(IVC* src, IVC* dst, int kernel);
+
+//VC06_18 dilatacao erosao
+int vc_binary_dilate(IVC* src, IVC* dst, int kernel);
+//int vc_binary_erode(IVC* src, IVC* dst, int kernel);
+
+//VC08_22 Histogramas gray show
+int vc_gray_histogram_show(IVC* src, IVC* dst);
+
+//VC08_22 Histogramas gray EQUALIZER
+int vc_gray_histogram_equalization(IVC* src, IVC* dst);
