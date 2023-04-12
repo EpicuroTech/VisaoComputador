@@ -1004,7 +1004,8 @@ int vc_gray_to_binary_kernel_midpoint(IVC* src, IVC* dst, int kernel)
 	}
 	return 1;
 }
-//VC06_18 dilatacao erosao
+
+//VC06_18 dilatacao
 int vc_binary_dilate(IVC* src, IVC* dst, int kernel)
 {
 	// info source
@@ -1072,7 +1073,11 @@ int vc_binary_dilate(IVC* src, IVC* dst, int kernel)
 	}
 	return 1;
 }
+
+//VC06_18 erosao
 //int vc_binary_erode(IVC* src, IVC* dst, int kernel);
+
+//VC06 ambas.....
 
 //VC08_22 Histogramas GRAY
 int vc_gray_histogram_show(IVC* src, IVC* dst)
