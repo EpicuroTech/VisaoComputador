@@ -76,3 +76,20 @@ int vc_gray_histogram_show(IVC* src, IVC* dst);
 
 //VC08_22 Histogramas gray EQUALIZER
 int vc_gray_histogram_equalization(IVC* src, IVC* dst);
+
+//VC07_11 Labelling 
+int vc_binary_blob_labelling(IVC* src, IVC* dst);
+
+//VC09_36 Detecao de contornos prewitt
+int vc_gray_edge_prewitt(IVC *src, IVC *dst, float th);
+//VC09_36 Detecao de contornos sobel
+int vc_gray_edge_prewitt(IVC* src, IVC* dst, float th);
+
+//VC10_14 Dominio Espacial media
+int vc_gray_lowpass_mean_filter(IVC* src, IVC* dst, int kernel);
+
+//VC10_14 Dominio Espacial mediana
+int vc_gray_lowpass_median_filter(IVC* src, IVC* dst, int kernel);
+
+//VC10_20 filtro gaussian
+int vc_gray_lowpass_gaussian_filter(IVC* src, IVC* dst);

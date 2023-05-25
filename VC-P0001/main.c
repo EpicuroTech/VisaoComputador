@@ -462,7 +462,7 @@ int mainVC08_21(void)
 }
 
 //VC08_23 Histogramas EQUALIZER GRAY int vc_gray_histogram_equalization(IVC *src, IVC *dst);
-int main(void)
+int mainVC08_23(void)
 {
 	IVC* image;
 
@@ -488,6 +488,210 @@ int main(void)
 	// Windows abrir imagens com filtergear
 	system("cmd start /c/FilterGear images/barbara2.pgm &"); // Input
 	system("cmd start /c/FilterGear barbara2HistGrayEQ.pgm"); // Output
+
+	printf("Press any key to exit...\n");
+	getchar();
+
+	return 0;
+}
+
+//VC07_11 blob LABELLING
+int mainVC07_11(void)
+{
+	IVC* image;
+
+	//lê imagem
+	image = vc_read_image("images/labelling-1.pgm");
+	if (image == NULL)
+	{
+		printf("ERRO -> vc_read_image():\n\tFile not found!\n");
+		getchar();
+		return 0;
+	}
+
+	IVC* resultado;
+	resultado = vc_image_new(image->width, image->height, 1, image->levels);
+
+	vc_binary_blob_labelling(image, resultado);
+	vc_write_image("labelling-1LABEL.pgm", resultado);
+
+	//limpa memoria
+	vc_image_free(image);
+	vc_image_free(resultado);
+
+	// Windows abrir imagens com filtergear
+	system("cmd start /c/FilterGear images/labelling-1.pgm &"); // Input
+	system("cmd start /c/FilterGear labelling-1LABEL.pgm"); // Output
+
+	printf("Press any key to exit...\n");
+	getchar();
+
+	return 0;
+}
+
+//VC09_36 int vc_gray_edge_prewitt(IVC *src, IVC *dst, float th);
+int mainVC09_36(void)
+{
+	IVC* image;
+
+	//lê imagem
+	image = vc_read_image("images/lenna.pgm");
+	if (image == NULL)
+	{
+		printf("ERRO -> vc_read_image():\n\tFile not found!\n");
+		getchar();
+		return 0;
+	}
+
+	IVC* resultado;
+	resultado = vc_image_new(image->width, image->height, 1, image->levels);
+
+	vc_gray_edge_prewitt(image, resultado, 70);
+	vc_write_image("lenna-prewitt.pgm", resultado);
+
+	//limpa memoria
+	vc_image_free(image);
+	vc_image_free(resultado);
+
+	// Windows abrir imagens com filtergear
+	system("cmd start /c/FilterGear images/lenna.pgm &"); // Input
+	system("cmd start /c/FilterGear lenna-prewitt.pgm"); // Output
+
+	printf("Press any key to exit...\n");
+	getchar();
+
+	return 0;
+}
+
+//VC09_36 int vc_gray_edge_sobel(IVC *src, IVC *dst, float th);
+int mainVC09_36Sobel(void)
+{
+	IVC* image;
+
+	//lê imagem
+	image = vc_read_image("images/lenna.pgm");
+	if (image == NULL)
+	{
+		printf("ERRO -> vc_read_image():\n\tFile not found!\n");
+		getchar();
+		return 0;
+	}
+
+	IVC* resultado;
+	resultado = vc_image_new(image->width, image->height, 1, image->levels);
+
+	vc_gray_edge_sobel(image, resultado, 101);
+	vc_write_image("lenna-sobel.pgm", resultado);
+
+	//limpa memoria
+	vc_image_free(image);
+	vc_image_free(resultado);
+
+	// Windows abrir imagens com filtergear
+	system("cmd start /c/FilterGear images/lenna.pgm &"); // Input
+	system("cmd start /c/FilterGear lenna-sobel.pgm"); // Output
+
+	printf("Press any key to exit...\n");
+	getchar();
+
+	return 0;
+}
+
+//VC10_14 Dominio Espacial media int vc_gray_lowpass_mean_filter(IVC *src, IVC *dst, int kernelsize);
+int mainVC10_14(void)
+{
+	IVC* image;
+
+	//lê imagem
+	image = vc_read_image("images/VC10/img_gaussian.pgm");
+	if (image == NULL)
+	{
+		printf("ERRO -> vc_read_image():\n\tFile not found!\n");
+		getchar();
+		return 0;
+	}
+
+	IVC* resultado;
+	resultado = vc_image_new(image->width, image->height, 1, image->levels);
+
+	vc_gray_lowpass_mean_filter(image,resultado, 5);
+	vc_write_image("img_gaussian-lowpassmedia.pgm", resultado);
+
+	//limpa memoria
+	vc_image_free(image);
+	vc_image_free(resultado);
+
+	// Windows abrir imagens com filtergear
+	system("cmd start /c/FilterGear images/VC10/img_gaussian.pgm &"); // Input
+	system("cmd start /c/FilterGear img_gaussian-lowpassmedia.pgm"); // Output
+
+	printf("Press any key to exit...\n");
+	getchar();
+
+	return 0;
+}
+
+//VC10_14 Dominio Espacial mediana int vc_gray_lowpass_median_filter(IVC *src, IVC *dst, int kernelsize);
+int mainVC10_14_2(void)
+{
+	IVC* image;
+
+	//lê imagem
+	image = vc_read_image("images/VC10/img_saltpepper_025_.pgm");
+	if (image == NULL)
+	{
+		printf("ERRO -> vc_read_image():\n\tFile not found!\n");
+		getchar();
+		return 0;
+	}
+
+	IVC* resultado;
+	resultado = vc_image_new(image->width, image->height, 1, image->levels);
+
+	vc_gray_lowpass_median_filter(image, resultado, 7);
+	vc_write_image("img_saltpepper_025_lowpassmediana.pgm", resultado);
+
+	//limpa memoria
+	vc_image_free(image);
+	vc_image_free(resultado);
+
+	// Windows abrir imagens com filtergear
+	system("cmd start /c/FilterGear images/VC10/img_saltpepper_025_.pgm"); // Input
+	system("cmd start /c/FilterGear img_saltpepper_025_lowpassmediana.pgm"); // Output
+
+	printf("Press any key to exit...\n");
+	getchar();
+
+	return 0;
+}
+
+//VC10_20 Gaussian filtro  int vc_gray_lowpass_gaussian_filter(IVC* src, IVC* dst);
+int main(void)
+{
+	IVC* image;
+
+	//lê imagem
+	image = vc_read_image("images/VC10/img_saltpepper_025_.pgm");
+	if (image == NULL)
+	{
+		printf("ERRO -> vc_read_image():\n\tFile not found!\n");
+		getchar();
+		return 0;
+	}
+
+	IVC* resultado;
+	resultado = vc_image_new(image->width, image->height, 1, image->levels);
+
+	vc_gray_lowpass_gaussian_filter(image, resultado, 7);
+	vc_write_image("img_saltpepper_025_lowpassgaussian.pgm", resultado);
+
+	//limpa memoria
+	vc_image_free(image);
+	vc_image_free(resultado);
+
+	// Windows abrir imagens com filtergear
+	system("cmd start /c/FilterGear images/VC10/img_saltpepper_025_.pgm"); // Input
+	system("cmd start /c/FilterGear img_saltpepper_025_lowpassgaussian.pgm"); // Output
 
 	printf("Press any key to exit...\n");
 	getchar();

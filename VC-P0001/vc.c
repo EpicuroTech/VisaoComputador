@@ -15,6 +15,7 @@
 #include <string.h>
 #include <malloc.h>
 #include "vc.h"
+#include <math.h>
 
 
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -1230,5 +1231,429 @@ int vc_gray_histogram_equalization(IVC* src, IVC* dst)
 		}
 	}
 	//---------------------------------------------------------
+	return 1;
+}
+
+//VC07_11 blob Labelling 
+int vc_binary_blob_labelling(IVC* src, IVC* dst)
+{
+	// info source
+	unsigned char* datasrc = (unsigned char*)src->data;
+	int bytesperline_src = src->width * src->channels;
+	int channels_src = src->channels;
+
+	//info destino
+	unsigned char* datadst = (unsigned char*)dst->data;
+	int bytesperline_dst = dst->width * dst->channels;
+	int channels_dst = dst->channels;
+
+	// medidas
+	int width = src->width;
+	int height = src->height;
+
+	//auxiliares gerais
+	int x, y, min, label=1;
+	long int pos_src, pos_dst, posA, posB, posC, posD, posX;
+
+
+	//verificação de erros
+	if ((src->width <= 0) || (src->height <= 0) || (src->data == NULL)) return 0;
+	if ((src->width != dst->width) || (src->height != dst->height)) return 0;
+	if ((src->channels != 1) || (dst->channels != 1)) return 0;
+
+	for (y = 0;y < height;y++)
+	{
+		for (x = 0;x < width; x++)
+		{
+			posX = y * bytesperline_dst + x * channels_dst;//posicao destino
+
+			//colocar destino a 255
+			datadst[posX] = 255;
+		}
+	}
+	for (y = 1;y < height-1;y++)
+	{
+		for (x = 1;x < width-1; x++)
+		{
+			//POSIÇOES DO KERNEL / VIZINHOS
+			posX = y * bytesperline_src + x * channels_src;//posicao da source X
+			posA = (y-1) * bytesperline_src + (x-1) * channels_src;
+			posB = (y - 1) * bytesperline_src + x * channels_src;
+			posC = (y - 1) * bytesperline_src + (x + 1) * channels_src;
+			posD = y * bytesperline_src + (x - 1) * channels_src;
+
+			if (datadst[posX] != 0)
+			{
+
+				if (datadst[posA] == 0 && datadst[posB] == 0 && datadst[posC] == 0 && datadst[posD] == 0)
+				{
+					datadst[posX] = label;
+					label++;
+				}
+
+				else 
+				{
+					min = 255;
+					//encontrar minimo
+					if (datadst[posA] <= min && datadst[posA] != 0) min = datadst[posA];
+					if (datadst[posB] <= min && datadst[posB] != 0) min = datadst[posB];
+					if (datadst[posC] <= min && datadst[posC] != 0) min = datadst[posC];
+					if (datadst[posD] <= min && datadst[posD] != 0) min = datadst[posD];
+
+					datadst[posX] = min;
+				}
+			}
+		}
+	}
+	return 1;
+}
+
+//VC09_36 Detecao de contornos prewitt
+int vc_gray_edge_prewitt(IVC* src, IVC* dst, float th)
+{
+	// info source
+	unsigned char* datasrc = (unsigned char*)src->data;
+	int bytesperline_src = src->width * src->channels;
+	int channels_src = src->channels;
+
+	//info destino
+	unsigned char* datadst = (unsigned char*)dst->data;
+	int bytesperline_dst = dst->width * dst->channels;
+	int channels_dst = dst->channels;
+
+	// medidas
+	int width = src->width;
+	int height = src->height;
+
+	//auxiliares gerais
+	int x, y, min, fdX, fdY;
+	long int pos_src, pos_dst, posA, posB, posC, posD, posE, posF, posG,posH, posX;
+	float magn;
+
+				/*Posiçoes			SOBEL X				PREWITT X
+				* [A	B	C]		[-1		0	1]		[-1		0	1]
+				* [D	X	E]		[-2		0	2]		[-1		0	1]
+				* [F	G	H]		[-1		0	1]		[-1		0	1]
+				*					SOBEL Y				PREWITT Y
+				*					[-1		-2	1]		[-1		-1	-1]
+				*					[0		0	0]		[0		0	 0]
+				*					[1		2	1]		[1		1	 1]
+				*/
+
+	//verificação de erros
+	if ((src->width <= 0) || (src->height <= 0) || (src->data == NULL)) return 0;
+	if ((src->width != dst->width) || (src->height != dst->height)) return 0;
+	if ((src->channels != 1) || (dst->channels != 1)) return 0;
+
+	for (y = 1;y < height - 1;y++)
+	{
+		for (x = 1;x < width - 1; x++)
+		{
+			//POSIÇOES DO KERNEL / VIZINHOS
+			posA = (y - 1) * bytesperline_src + (x - 1) * channels_src;
+			posB = (y - 1) * bytesperline_src + x * channels_src;
+			posC = (y - 1) * bytesperline_src + (x + 1) * channels_src;
+			posD = y * bytesperline_src + (x - 1) * channels_src;
+			posX = y * bytesperline_src + x * channels_src;	//POSICAO X
+			posE = y * bytesperline_src + (x + 1) * channels_src;
+			posF = (y + 1) * bytesperline_src + (x - 1) * channels_src;
+			posG = (y + 1) * bytesperline_src + x * channels_src;
+			posH = (y + 1) * bytesperline_src + (x + 1) * channels_src;
+
+			// Calcular derivadas
+			fdX = datasrc[posA] * -1 + datasrc[posC] * 1 + datasrc[posD] * -1 + datasrc[posE] * 1 + datasrc[posF] * -1 + datasrc[posH] * 1;
+			fdY = datasrc[posA] * -1 + datasrc[posB] * -1 + datasrc[posC] * -1 + datasrc[posF] * 1 + datasrc[posG] * 1 + datasrc[posH] * 1;
+
+			// Calcular magnitude
+			magn = sqrt(fdX*fdX+fdY*fdY);
+			if (magn > th)
+			{
+				datadst[posX] = 255;//(unsigned char)magn;
+			}
+			else datadst[posX] = 0;
+		}
+	}
+	return 1;
+}
+
+//VC09_36 Detecao de contornos sobel
+int vc_gray_edge_sobel(IVC* src, IVC* dst, float th)
+{
+	// info source
+	unsigned char* datasrc = (unsigned char*)src->data;
+	int bytesperline_src = src->width * src->channels;
+	int channels_src = src->channels;
+
+	//info destino
+	unsigned char* datadst = (unsigned char*)dst->data;
+	int bytesperline_dst = dst->width * dst->channels;
+	int channels_dst = dst->channels;
+
+	// medidas
+	int width = src->width;
+	int height = src->height;
+
+	//auxiliares gerais
+	int x, y, min, fdX, fdY;
+	long int pos_src, pos_dst, posA, posB, posC, posD, posE, posF, posG, posH, posX;
+	float magn;
+
+	/*Posiçoes			SOBEL X				PREWITT X
+	* [A	B	C]		[-1		0	1]		[-1		0	1]
+	* [D	X	E]		[-2		0	2]		[-1		0	1]
+	* [F	G	H]		[-1		0	1]		[-1		0	1]
+	*					SOBEL Y				PREWITT Y
+	*					[-1		-2	1]		[-1		-1	-1]
+	*					[0		0	0]		[0		0	 0]
+	*					[1		2	1]		[1		1	 1]
+	*/
+
+	//verificação de erros
+	if ((src->width <= 0) || (src->height <= 0) || (src->data == NULL)) return 0;
+	if ((src->width != dst->width) || (src->height != dst->height)) return 0;
+	if ((src->channels != 1) || (dst->channels != 1)) return 0;
+
+	for (y = 1;y < height - 1;y++)
+	{
+		for (x = 1;x < width - 1; x++)
+		{
+			//POSIÇOES DO KERNEL / VIZINHOS
+			posA = (y - 1) * bytesperline_src + (x - 1) * channels_src;
+			posB = (y - 1) * bytesperline_src + x * channels_src;
+			posC = (y - 1) * bytesperline_src + (x + 1) * channels_src;
+			posD = y * bytesperline_src + (x - 1) * channels_src;
+			posX = y * bytesperline_src + x * channels_src;	//POSICAO X
+			posE = y * bytesperline_src + (x + 1) * channels_src;
+			posF = (y + 1) * bytesperline_src + (x - 1) * channels_src;
+			posG = (y + 1) * bytesperline_src + x * channels_src;
+			posH = (y + 1) * bytesperline_src + (x + 1) * channels_src;
+
+			// Calcular derivadas
+			fdX = datasrc[posA] * -1 + datasrc[posC] * 1 + datasrc[posD] * -2 + datasrc[posE] * 2 + datasrc[posF] * -1 + datasrc[posH] * 1;
+			fdY = datasrc[posA] * -1 + datasrc[posB] * -2 + datasrc[posC] * -1 + datasrc[posF] * 1 + datasrc[posG] * 2 + datasrc[posH] * 1;
+
+			// Calcular magnitude
+			magn = sqrt(fdX * fdX + fdY * fdY);
+			if (magn > th)
+			{
+				datadst[posX] = 255; //(unsigned char)magn;
+			}
+			else datadst[posX] = 0;
+		}
+	}
+	return 1;
+}
+
+//VC10_14 Dominio Espacial media
+int vc_gray_lowpass_mean_filter(IVC* src, IVC* dst, int kernel)
+{
+	// info source
+	unsigned char* datasrc = (unsigned char*)src->data;
+	int bytesperline_src = src->width * src->channels;
+	int channels_src = src->channels;
+
+	//info destino
+	unsigned char* datadst = (unsigned char*)dst->data;
+	int bytesperline_dst = dst->width * dst->channels;
+	int channels_dst = dst->channels;
+
+	// medidas
+	int width = src->width;
+	int height = src->height;
+
+	//auxiliares gerais
+	int x, y, x2, y2, ksize;
+	long int pos_src, pos_dst, pos_src2, soma=0;
+	float media;
+
+
+	//verificação de erros
+	if ((src->width <= 0) || (src->height <= 0) || (src->data == NULL)) return 0;
+	if ((src->width != dst->width) || (src->height != dst->height)) return 0;
+	if ((src->channels != 1) || (dst->channels != 1)) return 0;
+
+	/*Posiçoes
+	* [A	B	C]
+	* [D	X	E]
+	* [F	G	H]
+	*/
+	ksize = (kernel - 1) / 2;
+	for (y = 0;y < height;y++)
+	{
+		for (x = 0;x < width; x++)
+		{
+			pos_src = y * bytesperline_src + x * channels_src;//posicao da source
+			pos_dst = y * bytesperline_dst + x * channels_dst;//posicao destino
+
+
+			for (y2 = (y - ksize); y2 <= (y + ksize);y2++)
+			{
+				for (x2 = (x - ksize); x2 <= (x + ksize);x2++)
+				{
+					if ((y2 >= 0) && (y2 < height) && (x2 >= 0) && (x2 < width))
+					{
+
+						pos_src2 = y2 * bytesperline_src + x2 * channels_src;//posicao da source
+						soma += datasrc[pos_src2];
+
+					}
+					else datadst[pos_dst] = datasrc[pos_src];//se o kernel estiver fora da imagem
+				}
+			}
+			media = soma / (float)(kernel*kernel);//exemplo 5 por 5 = kernel x kernel
+			datadst[pos_dst] = media;
+			soma = 0;
+		}
+	}
+	return 1;
+}
+
+//VC10_14 Dominio Espacial mediana
+int vc_gray_lowpass_median_filter(IVC* src, IVC* dst, int kernel)
+{
+	// info source
+	unsigned char* datasrc = (unsigned char*)src->data;
+	int bytesperline_src = src->width * src->channels;
+	int channels_src = src->channels;
+
+	//info destino
+	unsigned char* datadst = (unsigned char*)dst->data;
+	int bytesperline_dst = dst->width * dst->channels;
+	int channels_dst = dst->channels;
+
+	// medidas
+	int width = src->width;
+	int height = src->height;
+
+	//auxiliares gerais
+	int x, y, x2, y2, ksize, npixkernel, i;
+	npixkernel = kernel * kernel;
+	long int pos_src, pos_dst, pos_src2, mediana[1000];
+
+
+	//verificação de erros
+	if ((src->width <= 0) || (src->height <= 0) || (src->data == NULL)) return 0;
+	if ((src->width != dst->width) || (src->height != dst->height)) return 0;
+	if ((src->channels != 1) || (dst->channels != 1)) return 0;
+
+	/*Posiçoes
+	* [A	B	C]
+	* [D	X	E]
+	* [F	G	H]
+	*/
+	ksize = (kernel - 1) / 2;
+	for (y = 0;y < height;y++)
+	{
+		for (x = 0;x < width; x++)
+		{
+			pos_src = y * bytesperline_src + x * channels_src;//posicao da source
+			pos_dst = y * bytesperline_dst + x * channels_dst;//posicao destino
+
+			i = 0;
+			for (y2 = (y - ksize); y2 <= (y + ksize);y2++)
+			{
+				for (x2 = (x - ksize); x2 <= (x + ksize);x2++)
+				{
+					if ((y2 >= 0) && (y2 < height) && (x2 >= 0) && (x2 < width))
+					{
+
+						pos_src2 = y2 * bytesperline_src + x2 * channels_src;//posicao da source
+						mediana[i] = datasrc[pos_src2];
+						i++;
+
+					}
+					//else datadst[pos_dst] = datasrc[pos_src];//se o kernel estiver fora da imagem
+				}
+			}
+			//buble sort
+			for (i = 0; i < npixkernel - 1; i++)
+			{
+				for (int j = 0; j < npixkernel - i - 1; j++) {
+					if (mediana[j] > mediana[j + 1]) 
+					{
+						int temp = mediana[j];
+						mediana[j] = mediana[j + 1];
+						mediana[j + 1] = temp;
+					}
+				}
+			}
+			datadst[pos_dst] = mediana[(npixkernel-1)/2];
+		}
+	}
+	return 1;
+}
+
+//VC10_20 filtro gaussian INCOMPLETO
+int vc_gray_lowpass_gaussian_filter(IVC* src, IVC* dst)
+{
+	// info source
+	unsigned char* datasrc = (unsigned char*)src->data;
+	int bytesperline_src = src->width * src->channels;
+	int channels_src = src->channels;
+
+	//info destino
+	unsigned char* datadst = (unsigned char*)dst->data;
+	int bytesperline_dst = dst->width * dst->channels;
+	int channels_dst = dst->channels;
+
+	// medidas
+	int width = src->width;
+	int height = src->height;
+
+	//auxiliares gerais
+	int x, y, x2, y2, ksize, npixkernel, i;
+	npixkernel = kernel * kernel;
+	long int pos_src, pos_dst, pos_src2, mediana[1000];
+
+
+	//verificação de erros
+	if ((src->width <= 0) || (src->height <= 0) || (src->data == NULL)) return 0;
+	if ((src->width != dst->width) || (src->height != dst->height)) return 0;
+	if ((src->channels != 1) || (dst->channels != 1)) return 0;
+
+	/*Posiçoes
+	* [A	B	C]
+	* [D	X	E]
+	* [F	G	H]
+	*/
+	ksize = (kernel - 1) / 2;
+	for (y = 0;y < height;y++)
+	{
+		for (x = 0;x < width; x++)
+		{
+			pos_src = y * bytesperline_src + x * channels_src;//posicao da source
+			pos_dst = y * bytesperline_dst + x * channels_dst;//posicao destino
+
+			i = 0;
+			for (y2 = (y - ksize); y2 <= (y + ksize);y2++)
+			{
+				for (x2 = (x - ksize); x2 <= (x + ksize);x2++)
+				{
+					if ((y2 >= 0) && (y2 < height) && (x2 >= 0) && (x2 < width))
+					{
+
+						pos_src2 = y2 * bytesperline_src + x2 * channels_src;//posicao da source
+						mediana[i] = datasrc[pos_src2];
+						i++;
+
+					}
+					//else datadst[pos_dst] = datasrc[pos_src];//se o kernel estiver fora da imagem
+				}
+			}
+			//buble sort
+			for (i = 0; i < npixkernel - 1; i++)
+			{
+				for (int j = 0; j < npixkernel - i - 1; j++) {
+					if (mediana[j] > mediana[j + 1])
+					{
+						int temp = mediana[j];
+						mediana[j] = mediana[j + 1];
+						mediana[j + 1] = temp;
+					}
+				}
+			}
+			datadst[pos_dst] = mediana[(npixkernel - 1) / 2];
+		}
+	}
 	return 1;
 }
