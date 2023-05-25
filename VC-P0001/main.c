@@ -632,7 +632,7 @@ int mainVC10_14(void)
 }
 
 //VC10_14 Dominio Espacial mediana int vc_gray_lowpass_median_filter(IVC *src, IVC *dst, int kernelsize);
-int mainVC10_14_2(void)
+int main(void)
 {
 	IVC* image;
 
@@ -665,36 +665,39 @@ int mainVC10_14_2(void)
 	return 0;
 }
 
+
+
+//incompleto
 //VC10_20 Gaussian filtro  int vc_gray_lowpass_gaussian_filter(IVC* src, IVC* dst);
-int main(void)
-{
-	IVC* image;
-
-	//lê imagem
-	image = vc_read_image("images/VC10/img_saltpepper_025_.pgm");
-	if (image == NULL)
-	{
-		printf("ERRO -> vc_read_image():\n\tFile not found!\n");
-		getchar();
-		return 0;
-	}
-
-	IVC* resultado;
-	resultado = vc_image_new(image->width, image->height, 1, image->levels);
-
-	vc_gray_lowpass_gaussian_filter(image, resultado, 7);
-	vc_write_image("img_saltpepper_025_lowpassgaussian.pgm", resultado);
-
-	//limpa memoria
-	vc_image_free(image);
-	vc_image_free(resultado);
-
-	// Windows abrir imagens com filtergear
-	system("cmd start /c/FilterGear images/VC10/img_saltpepper_025_.pgm"); // Input
-	system("cmd start /c/FilterGear img_saltpepper_025_lowpassgaussian.pgm"); // Output
-
-	printf("Press any key to exit...\n");
-	getchar();
-
-	return 0;
-}
+//int main(void)
+//{
+//	IVC* image;
+//
+//	//lê imagem
+//	image = vc_read_image("images/VC10/img_saltpepper_025_.pgm");
+//	if (image == NULL)
+//	{
+//		printf("ERRO -> vc_read_image():\n\tFile not found!\n");
+//		getchar();
+//		return 0;
+//	}
+//
+//	IVC* resultado;
+//	resultado = vc_image_new(image->width, image->height, 1, image->levels);
+//
+//	vc_gray_lowpass_gaussian_filter(image, resultado, 7);
+//	vc_write_image("img_saltpepper_025_lowpassgaussian.pgm", resultado);
+//
+//	//limpa memoria
+//	vc_image_free(image);
+//	vc_image_free(resultado);
+//
+//	// Windows abrir imagens com filtergear
+//	system("cmd start /c/FilterGear images/VC10/img_saltpepper_025_.pgm"); // Input
+//	system("cmd start /c/FilterGear img_saltpepper_025_lowpassgaussian.pgm"); // Output
+//
+//	printf("Press any key to exit...\n");
+//	getchar();
+//
+//	return 0;
+//}

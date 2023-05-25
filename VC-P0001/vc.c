@@ -1584,76 +1584,76 @@ int vc_gray_lowpass_median_filter(IVC* src, IVC* dst, int kernel)
 }
 
 //VC10_20 filtro gaussian INCOMPLETO
-int vc_gray_lowpass_gaussian_filter(IVC* src, IVC* dst)
-{
-	// info source
-	unsigned char* datasrc = (unsigned char*)src->data;
-	int bytesperline_src = src->width * src->channels;
-	int channels_src = src->channels;
-
-	//info destino
-	unsigned char* datadst = (unsigned char*)dst->data;
-	int bytesperline_dst = dst->width * dst->channels;
-	int channels_dst = dst->channels;
-
-	// medidas
-	int width = src->width;
-	int height = src->height;
-
-	//auxiliares gerais
-	int x, y, x2, y2, ksize, npixkernel, i;
-	npixkernel = kernel * kernel;
-	long int pos_src, pos_dst, pos_src2, mediana[1000];
-
-
-	//verificação de erros
-	if ((src->width <= 0) || (src->height <= 0) || (src->data == NULL)) return 0;
-	if ((src->width != dst->width) || (src->height != dst->height)) return 0;
-	if ((src->channels != 1) || (dst->channels != 1)) return 0;
-
-	/*Posiçoes
-	* [A	B	C]
-	* [D	X	E]
-	* [F	G	H]
-	*/
-	ksize = (kernel - 1) / 2;
-	for (y = 0;y < height;y++)
-	{
-		for (x = 0;x < width; x++)
-		{
-			pos_src = y * bytesperline_src + x * channels_src;//posicao da source
-			pos_dst = y * bytesperline_dst + x * channels_dst;//posicao destino
-
-			i = 0;
-			for (y2 = (y - ksize); y2 <= (y + ksize);y2++)
-			{
-				for (x2 = (x - ksize); x2 <= (x + ksize);x2++)
-				{
-					if ((y2 >= 0) && (y2 < height) && (x2 >= 0) && (x2 < width))
-					{
-
-						pos_src2 = y2 * bytesperline_src + x2 * channels_src;//posicao da source
-						mediana[i] = datasrc[pos_src2];
-						i++;
-
-					}
-					//else datadst[pos_dst] = datasrc[pos_src];//se o kernel estiver fora da imagem
-				}
-			}
-			//buble sort
-			for (i = 0; i < npixkernel - 1; i++)
-			{
-				for (int j = 0; j < npixkernel - i - 1; j++) {
-					if (mediana[j] > mediana[j + 1])
-					{
-						int temp = mediana[j];
-						mediana[j] = mediana[j + 1];
-						mediana[j + 1] = temp;
-					}
-				}
-			}
-			datadst[pos_dst] = mediana[(npixkernel - 1) / 2];
-		}
-	}
-	return 1;
-}
+//int vc_gray_lowpass_gaussian_filter(IVC* src, IVC* dst)
+//{
+//	// info source
+//	unsigned char* datasrc = (unsigned char*)src->data;
+//	int bytesperline_src = src->width * src->channels;
+//	int channels_src = src->channels;
+//
+//	//info destino
+//	unsigned char* datadst = (unsigned char*)dst->data;
+//	int bytesperline_dst = dst->width * dst->channels;
+//	int channels_dst = dst->channels;
+//
+//	// medidas
+//	int width = src->width;
+//	int height = src->height;
+//
+//	//auxiliares gerais
+//	int x, y, x2, y2, ksize, npixkernel, i;
+//	npixkernel = kernel * kernel;
+//	long int pos_src, pos_dst, pos_src2, mediana[1000];
+//
+//
+//	//verificação de erros
+//	if ((src->width <= 0) || (src->height <= 0) || (src->data == NULL)) return 0;
+//	if ((src->width != dst->width) || (src->height != dst->height)) return 0;
+//	if ((src->channels != 1) || (dst->channels != 1)) return 0;
+//
+//	/*Posiçoes
+//	* [A	B	C]
+//	* [D	X	E]
+//	* [F	G	H]
+//	*/
+//	ksize = (kernel - 1) / 2;
+//	for (y = 0;y < height;y++)
+//	{
+//		for (x = 0;x < width; x++)
+//		{
+//			pos_src = y * bytesperline_src + x * channels_src;//posicao da source
+//			pos_dst = y * bytesperline_dst + x * channels_dst;//posicao destino
+//
+//			i = 0;
+//			for (y2 = (y - ksize); y2 <= (y + ksize);y2++)
+//			{
+//				for (x2 = (x - ksize); x2 <= (x + ksize);x2++)
+//				{
+//					if ((y2 >= 0) && (y2 < height) && (x2 >= 0) && (x2 < width))
+//					{
+//
+//						pos_src2 = y2 * bytesperline_src + x2 * channels_src;//posicao da source
+//						mediana[i] = datasrc[pos_src2];
+//						i++;
+//
+//					}
+//					//else datadst[pos_dst] = datasrc[pos_src];//se o kernel estiver fora da imagem
+//				}
+//			}
+//			//buble sort
+//			for (i = 0; i < npixkernel - 1; i++)
+//			{
+//				for (int j = 0; j < npixkernel - i - 1; j++) {
+//					if (mediana[j] > mediana[j + 1])
+//					{
+//						int temp = mediana[j];
+//						mediana[j] = mediana[j + 1];
+//						mediana[j + 1] = temp;
+//					}
+//				}
+//			}
+//			datadst[pos_dst] = mediana[(npixkernel - 1) / 2];
+//		}
+//	}
+//	return 1;
+//}

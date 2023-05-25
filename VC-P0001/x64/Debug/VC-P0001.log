@@ -1,19 +1,8 @@
-﻿  vc.c
-C:\Users\EpicuroTech\Documents\IPCA\2022-2023\2S\VC\codigo\VC-P0001\VC-P0001\vc.c(246,12): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\EpicuroTech\Documents\IPCA\2022-2023\2S\VC\codigo\VC-P0001\VC-P0001\vc.c(286,12): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\EpicuroTech\Documents\IPCA\2022-2023\2S\VC\codigo\VC-P0001\VC-P0001\vc.c(925,15): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\EpicuroTech\Documents\IPCA\2022-2023\2S\VC\codigo\VC-P0001\VC-P0001\vc.c(1000,26): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\EpicuroTech\Documents\IPCA\2022-2023\2S\VC\codigo\VC-P0001\VC-P0001\vc.c(1230,90): warning C4244: '=': conversion from 'float' to 'unsigned char', possible loss of data
-C:\Users\EpicuroTech\Documents\IPCA\2022-2023\2S\VC\codigo\VC-P0001\VC-P0001\vc.c(1256,20): warning C4101: 'pos_dst': unreferenced local variable
-C:\Users\EpicuroTech\Documents\IPCA\2022-2023\2S\VC\codigo\VC-P0001\VC-P0001\vc.c(1256,11): warning C4101: 'pos_src': unreferenced local variable
-C:\Users\EpicuroTech\Documents\IPCA\2022-2023\2S\VC\codigo\VC-P0001\VC-P0001\vc.c(1368,11): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\EpicuroTech\Documents\IPCA\2022-2023\2S\VC\codigo\VC-P0001\VC-P0001\vc.c(1330,20): warning C4101: 'pos_dst': unreferenced local variable
-C:\Users\EpicuroTech\Documents\IPCA\2022-2023\2S\VC\codigo\VC-P0001\VC-P0001\vc.c(1329,12): warning C4101: 'min': unreferenced local variable
-C:\Users\EpicuroTech\Documents\IPCA\2022-2023\2S\VC\codigo\VC-P0001\VC-P0001\vc.c(1330,11): warning C4101: 'pos_src': unreferenced local variable
-C:\Users\EpicuroTech\Documents\IPCA\2022-2023\2S\VC\codigo\VC-P0001\VC-P0001\vc.c(1436,11): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\EpicuroTech\Documents\IPCA\2022-2023\2S\VC\codigo\VC-P0001\VC-P0001\vc.c(1398,20): warning C4101: 'pos_dst': unreferenced local variable
-C:\Users\EpicuroTech\Documents\IPCA\2022-2023\2S\VC\codigo\VC-P0001\VC-P0001\vc.c(1397,12): warning C4101: 'min': unreferenced local variable
-C:\Users\EpicuroTech\Documents\IPCA\2022-2023\2S\VC\codigo\VC-P0001\VC-P0001\vc.c(1398,11): warning C4101: 'pos_src': unreferenced local variable
-C:\Users\EpicuroTech\Documents\IPCA\2022-2023\2S\VC\codigo\VC-P0001\VC-P0001\vc.c(1504,23): warning C4244: '=': conversion from 'float' to 'unsigned char', possible loss of data
-C:\Users\EpicuroTech\Documents\IPCA\2022-2023\2S\VC\codigo\VC-P0001\VC-P0001\vc.c(1580,30): warning C4244: '=': conversion from 'long' to 'unsigned char', possible loss of data
+﻿  main.c
+C:\Users\EpicuroTech\Documents\IPCA\2022-2023\2S\VC\codigo\VC-P0001\VC-P0001\main.c(116,6): warning C4101: 'i': unreferenced local variable
+C:\Users\EpicuroTech\Documents\IPCA\2022-2023\2S\VC\codigo\VC-P0001\VC-P0001\main.c(155,6): warning C4101: 'i': unreferenced local variable
+C:\Users\EpicuroTech\Documents\IPCA\2022-2023\2S\VC\codigo\VC-P0001\VC-P0001\main.c(191,6): warning C4101: 'i': unreferenced local variable
+C:\Users\EpicuroTech\Documents\IPCA\2022-2023\2S\VC\codigo\VC-P0001\VC-P0001\main.c(228,6): warning C4101: 'i': unreferenced local variable
+C:\Users\EpicuroTech\Documents\IPCA\2022-2023\2S\VC\codigo\VC-P0001\VC-P0001\main.c(264,6): warning C4101: 'i': unreferenced local variable
+C:\Users\EpicuroTech\Documents\IPCA\2022-2023\2S\VC\codigo\VC-P0001\VC-P0001\main.c(583,2): warning C4013: 'vc_gray_edge_sobel' undefined; assuming extern returning int
   VC-P0001.vcxproj -> C:\Users\EpicuroTech\Documents\IPCA\2022-2023\2S\VC\codigo\VC-P0001\x64\Debug\VC-P0001.exe
